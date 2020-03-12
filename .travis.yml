@@ -1,0 +1,9 @@
+language: node_js
+node_js: --lts
+before_script:
+  - git config user.name "AutoDeploy"
+  - git config user.email "minskiter@qq.com"
+  - sed -i'' "s~https://github.com/minskiter/minskiter.github.io.git~https://${GITHUB_TOKEN}@github.com/minskiter/minskiter.github.io.git~" _config.yml
+script:
+  - hexo g
+  - hexo d
