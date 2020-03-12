@@ -1,5 +1,7 @@
 language: node_js
 node_js: --lts
+install: 
+  - yarn
 before_script:
   - git config user.name "AutoDeploy"
   - git config user.email "minskiter@qq.com"
