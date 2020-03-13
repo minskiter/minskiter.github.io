@@ -1,0 +1,5 @@
+options:
+  lineNumbers: true
+  imagePath: /res/images
+editor:
+  lineNumbers: true
