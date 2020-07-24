@@ -4,13 +4,15 @@ date: 2019-09-07 14:40:25
 categories:
     - dotnet
 tags:
+    - dotnet
 ---
 
 
 #### 为什么需要JWT
 
- - CORS+COOKIE认证无法进行跨根域传认证cookie导致登陆失败，这个问题暂时没有解决办法（2019-8-7），测试（EDGE DEV,EDGE 可以，但是CHROME没办法SET-cookie)
- - 前后端分离，开发采用的是不同IP，基于headers传TOKEN扩展性更好
+ - 服务端设置的cookie被浏览器所保护，无法跨域传输
+
+ <!-- more  -->
 
 #### DOTNET 对于JWT的支持
 

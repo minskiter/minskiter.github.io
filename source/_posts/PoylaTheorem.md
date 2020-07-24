@@ -4,6 +4,9 @@ date: 2019-09-07 14:40:25
 categories:
   - math
 mathjax: true
+tags:
+  - math
+  - algorithm
 ---
 
 

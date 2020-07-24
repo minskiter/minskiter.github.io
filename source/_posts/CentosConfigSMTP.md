@@ -2,11 +2,13 @@
 title: 利用NetEase邮箱进行邮件验证 
 date: 2019-09-07 14:40:25
 categories:
-    - server
+    - linux
 ---
 
 
 #### Aliyun 默认封25端口 所以只能转用465端口发邮件
+
+<!-- more -->
 
 1. 安装mailx（PS:使用前关闭默认的postfix）
     ``` bash

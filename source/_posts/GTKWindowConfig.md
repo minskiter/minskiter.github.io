@@ -3,10 +3,17 @@ title: GTK windows 编译环境配置gtk
 date: 2019-09-07 14:40:25
 categories:
     - c
+tags:
+    - c
+    - gtk
+    - clion
 ---
 
 
 ### GTKwin配置+Clion IDE配置
+
+
+<!-- more -->
 #### 环境
 - windows 10 x86_64
 - [msys2][1]
@@ -17,6 +24,8 @@ categories:
 3. `pacman -S mingw-w64-x86_64-toolchain base-devel` 下载gcc等编译工具，包含Pkg-config
 
 *`pacman`类似于yum和apt-get的软件包管理工具*
+
+
 
 #### 下载完毕后设置win环境变量
 
@@ -33,16 +42,20 @@ categories:
 #### CLION IDE 配置debug和release
 
 1. File-Setting-Toolchian 配置如图
-![clion_mingw.PNG][3]
+  ![3968774064](GTKWindowConfig/3968774064.png)
+
 2. 在Setting里选择CMake添加在profiles里添加Release（会自动生成）
-3. 修改CMakeList.txt   
-![cmake设置.PNG][4]
-*FIND_PACKAGE 包管理寻找*
-*PKG_CHECK_MODULES 包模块检查*
-*INCLUDE_DIRECTORIES 库路径搜索*
-*LINK_DIRECTORIES 动态链接库搜索*
-*set_target_properties 设置目标属性-只有release下有效*
-*TARGET_LINK_LIBRARIES 生成的文件链接动态库*
+
+3. 修改CMakeList.txt
+
+  ![850874946](GTKWindowConfig/850874946.png)
+
+  *FIND_PACKAGE 包管理寻找*
+  *PKG_CHECK_MODULES 包模块检查*
+  *INCLUDE_DIRECTORIES 库路径搜索*
+  *LINK_DIRECTORIES 动态链接库搜索*
+  *set_target_properties 设置目标属性-只有release下有效*
+  *TARGET_LINK_LIBRARIES 生成的文件链接动态库*
 
 #### 配置完成即可欢快的写GTK程序了
 
@@ -55,7 +68,5 @@ categories:
 
 
 
-  [1]: https://msys2.github.io/
-  [2]: https://www.gtk.org/download/windows.php
-  [3]: /res/image/3968774064.png
-  [4]: /res/image/850874946.png
+[1]: https://msys2.github.io/
+[2]: https://www.gtk.org/download/windows.php

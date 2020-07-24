@@ -4,6 +4,8 @@ date: 2019-09-07 14:40:25
 categories:
     - c
 tags:
+    - c
+    - gtk
 ---
 
 ## C基础课外编程项目——五子棋
@@ -14,6 +16,8 @@ tags:
 1. 命令行输入坐标下棋
 2. 命令行显示棋盘过程（刷新使用全局刷新cls）
 3. 能自动判断输赢
+
+<!-- more -->
 
 ### 代码实现（分为三个部分）
 1. 棋盘类
@@ -39,7 +43,7 @@ void initBoard(Board * thisB,int Height,int Width);//定义初始化
 void displayBoard(Board * thisB,int shiftSize); //打印棋盘,shiftSize棋盘向右偏移的位置，为了居中
 ```
 ### 裁判类
-```
+```c
 typedef struct autoReferee{//定义游戏裁判
     int turn; //回合
     short firstIs; //定义先下的一方，0是黑方，1是白方
@@ -308,7 +312,7 @@ void displayWinner(int who,int shiftSize){
 #### 
 
 ### 集成GoBang 头文件，方便调用（电脑方采用深度博弈暴力搜索）
-```
+```c
 #ifndef GoBang_H
 #define GoBang_H
 
@@ -778,7 +782,7 @@ void cui_clear_graph(struct cui_object * cur_cui,int top,int left,int height,int
 
 ```
 #### 控制台界面主函数代码
-[main.c][1]
+ [main.c](Gobang\main.c) 
 
 
 ----------
@@ -787,25 +791,16 @@ void cui_clear_graph(struct cui_object * cur_cui,int top,int left,int height,int
  1. 首先设置好编译环境（win10 64位 编译器Clion（cmake）---教育版免费使用）
  2. 用PS简单的做五子棋图片素材
     棋盘400px*400px   
-    ![五子棋棋盘.png][2]    
+     ![1012890199](Gobang/1012890199.png)
     
-     
     黑棋23px*23px
-    ![五子棋黑棋.png][3]   
+    ![2323675175](Gobang/2323675175.png)
     
     白棋23px*23px
-    ![五子棋白棋.png][4]    
+    ![1257543041](Gobang/1257543041.png)
     
  3. 用gtk控件布置好五子棋界面(主界面代码）
 [main.c][5]
 
 ### DEMO 演示
-![五子棋截图.gif][6]
-
-
-  [1]: /res/code/1855319326.c
-  [2]: /res/image/1012890199.png
-  [3]: /res/image/2323675175.png
-  [4]: /res/image/1257543041.png
-  [5]: /res/code/1127417095.c
-  [6]: /res/image/1826797494.gif
+![1826797494](Gobang/1826797494.gif)

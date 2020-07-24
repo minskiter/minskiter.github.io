@@ -3,6 +3,8 @@ title: Python 定向爬虫python
 date: 2019-09-07 14:40:25
 categories:
     - python
+tags:
+    - spider
 ---
 
 
@@ -17,6 +19,8 @@ categories:
 1. URLMangage 管理可爬取URL链接，存放于MYSQL数据库中，用以判重，断点续爬
 2. URLcode URL解析，解析protocol协议，domain域名，path相对路径，以及判断url所对应的文件类型或目录
 3. Spider 爬虫主程序，通过给定的URL入口进行递归爬取
+
+<!-- more -->
 
 #### 依赖第三方库
 
