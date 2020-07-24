@@ -28,184 +28,184 @@ https://github.com/minskiter/Centos7k8sScript
 
 #### 实践步骤
 
-1. 关闭swap分区
+##### 关闭swap分区
 
-   ``` sh
-   sudo swapoff
-   sudo vi /etc/fstab
-   # swap 加#注释swap分区
-   ```
-
-2. 安装docker-ce
-
-   1. Remove Older Docker-ce
-
-   ``` sh
-   sudo yum remove docker \
-                     docker-client \
-                     docker-client-latest \
-                     docker-common \
-                     docker-latest \
-                     docker-latest-logrotate \
-                     docker-logrotate \
-                     docker-engine
-   ```
-
-   2. Install Docker CE
-
-   ``` sh
-   sudo yum install -y yum-utils
-   sudo yum-config-manager \
-       --add-repo \
-       https://download.docker.com/linux/centos/docker-ce.repo
-   sudo yum install docker-ce docker-ce-cli containerd.io # Install Ce # Warning install containerd.io on Centos 8 first
-   ```
-
-   3. Configuration
-
-      ``` sh
-      sudo cat << CONFIGURE > /etc/docker/daemon.json
-      {
-          "data-root": "/var/lib/docker",
-          "registry-mirrors": [
-              "https://docker.mirrors.ustc.edu.cn"
-          ],
-          "exec-opts": [
-              "native.cgroupdriver=systemd"
-          ]
-      }
-      CONFIGURE
-      vi /lib/systemd/system/docker.service
-      ```
-
-      配置Docker Remote API
-
-      ``` sh
-      # 增加2375 Docker Remote API 
-      -H tcp://0.0.0.0:2375 
-      ```
-
-      开启防火墙
-
-      ``` sh
-      sudo firewall-cmd --permanent --zone=public --add-port=2375/tcp
-      sudo firewall-cmd --reload
-      ```
-      
-      增加HTTP代理
-      
 ``` sh
-      sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo swapoff
+sudo vi /etc/fstab
+# swap 加#注释swap分区
+```
+
+##### 安装docker-ce
+
+1. Remove Older Docker-ce
+
+``` sh
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+```
+
+2. Install Docker CE	
+
+``` sh
+sudo yum install -y yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install docker-ce docker-ce-cli containerd.io # Install Ce # Warning install containerd.io on Centos 8 first
+```
+
+3. Configuration
+
+``` sh
+sudo cat << CONFIGURE > /etc/docker/daemon.json
+{
+    "data-root": "/var/lib/docker",
+    "registry-mirrors": [
+        "https://docker.mirrors.ustc.edu.cn"
+    ],
+    "exec-opts": [
+        "native.cgroupdriver=systemd"
+    ]
+}
+CONFIGURE
+vi /lib/systemd/system/docker.service
+```
+
+4. 配置Docker Remote API
+
+``` sh
+# 增加2375 Docker Remote API 
+-H tcp://0.0.0.0:2375 
+```
+
+5. 开启防火墙
+
+``` sh
+sudo firewall-cmd --permanent --zone=public --add-port=2375/tcp
+sudo firewall-cmd --reload
+```
+
+6. 增加HTTP代理
+
+``` sh
+sudo mkdir -p /etc/systemd/system/docker.service.d
 cat << PROXY_SERVICE > /etc/systemd/system/docker.service.d/http-proxy.conf
-      [Service]
-      Environment="HTTP_PROXY=http://localhost:1080"
-      PROXY_SERVICE
-      ```
-      
-      ​	  *这里的http://localhost:1080 根据SSR修改*
-      
-      重启docker
-      
-      ``` sh
-      systemctl daemon-reload
-      systemctl restart docker
-      docker info # 查看配置是否生效
-      ```
-   
-3. 安装K8s
+[Service]
+Environment="HTTP_PROXY=http://localhost:1080"
+PROXY_SERVICE
+```
 
-   1. 添加Aliyun镜像
+*这里的http://localhost:1080 根据SSR修改*
 
-      ``` sh
-      sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-      [kubernetes]
-      name=Kubernetes
-      baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
-      enabled=1
-      gpgcheck=0
-      repo_gpgcheck=0
-      gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-      EOF
-      ```
+7. 重启docker
 
-   2. 关闭selinux 
+ ``` sh
+  systemctl daemon-reload
+  systemctl restart docker
+  docker info # 查看配置是否生效
+ ```
 
-      ``` sh
-      sudo setenforce 0
-      ```
+##### 安装K8s
 
-   3. 安装k8s
+1. 添加Aliyun镜像
 
-      ``` sh
-      sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-      sudo systemctl enable --now kubelet
-      ```
+   ``` sh
+   sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+   enabled=1
+   gpgcheck=0
+   repo_gpgcheck=0
+   gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+   EOF
+   ```
 
-   4.部署k8s
+2. 关闭selinux 
 
-   1. 修改hostname
+   ``` sh
+   sudo setenforce 0
+   ```
 
-      ``` sh
-      hostnamectl set-hostname master
-      ```
+3. 安装k8s
 
-   2. 修改hosts即本地DNS
+   ``` sh
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo systemctl enable --now kubelet
+   ```
 
-      ``` sh
-      sudo echo 127.0.0.1 $HOSTNAME >> /etc/hosts
-      ```
+##### 部署k8s
 
-   3. 初始化集群
+1. 修改hostname
 
-      ``` sh
-      kubeadm init --pod-network-cidr=10.244.0.0/16
-      ```
+   ``` sh
+   hostnamectl set-hostname master
+   ```
 
-      *暂存join命令*token
+2. 修改hosts即本地DNS
 
-   4. 添加配置文件
+   ``` sh
+   sudo echo 127.0.0.1 $HOSTNAME >> /etc/hosts
+   ```
 
-      ``` sh
-      mkdir -p $HOME/.kube
-      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-      sudo chown $(id -u):$(id -g) $HOME/.kube/config
-      ```
+3. 初始化集群
 
-   5. 安装网络插件calico
+   ``` sh
+   kubeadm init --pod-network-cidr=10.244.0.0/16
+   ```
 
-      ``` sh
-      mkdir -p $HOME/k8s/calico
-      curl https://docs.projectcalico.org/manifests/tigera-operator.yaml -o $HOME/k8s/calico/tigera-operator.yaml
-      cat << IMAGE_LIST > $HOME/k8s/calico/images.list.txt
-      $(cat $HOME/k8s/calico/tigera-operator.yaml | grep image: | awk '{print $2}')
-      IMAGE_LIST
-      curl https://docs.projectcalico.org/manifests/custom-resources.yaml -o $HOME/k8s/calico/custom-resources.yaml
-      cat << IMAGE_LIST2 >> $HOME/k8s/calico/images.list.txt
-      $(cat $HOME/k8s/calico/custom-resources.yaml | grep image: | awk '{print $2}')
-      IMAGE_LIST2
-      sed -i "s|$(cat $HOME/k8s/calico/custom-resources.yaml | grep cidr | awk '{print $2}')|$CID|g" $HOME/k8s/calico/custom-resources.yaml
-      docker pull $(cat $HOME/k8s/calico/images.list.txt)
-      kubectl create -f $HOME/k8s/calico/tigera-operator.yaml
-      kubectl create -f $HOME/k8s/calico/custom-resources.yaml
-      ```
+   *暂存join命令*token
 
-   6. 开启防火墙
+4. 添加配置文件
 
-      ``` sh
-      sudo firewall-cmd --permanent --zone=public --add-port=6443/tcp
-      sudo firewall-cmd --permanent --zone=public --add-port=2379-2380/tcp
-      sudo firewall-cmd --permanent --zone=public --add-port=10250-10252/tcp
-      sudo firewall-cmd --permanent --zone=public --add-port=6443/udp
-      sudo firewall-cmd --permanent --zone=public --add-port=2379-2380/udp
-      sudo firewall-cmd --permanent --zone=public --add-port=10250-10252/udp
-      sudo firewall-cmd --reload
-      ```
+   ``` sh
+   mkdir -p $HOME/.kube
+   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   ```
 
-   7. 监视pod是否有正常启动
+5. 安装网络插件calico
 
-      ``` sh
-      sudo watch kubectl get pods -A
-      ```
+   ``` sh
+   mkdir -p $HOME/k8s/calico
+   curl https://docs.projectcalico.org/manifests/tigera-operator.yaml -o $HOME/k8s/calico/tigera-operator.yaml
+   cat << IMAGE_LIST > $HOME/k8s/calico/images.list.txt
+   $(cat $HOME/k8s/calico/tigera-operator.yaml | grep image: | awk '{print $2}')
+   IMAGE_LIST
+   curl https://docs.projectcalico.org/manifests/custom-resources.yaml -o $HOME/k8s/calico/custom-resources.yaml
+   cat << IMAGE_LIST2 >> $HOME/k8s/calico/images.list.txt
+   $(cat $HOME/k8s/calico/custom-resources.yaml | grep image: | awk '{print $2}')
+   IMAGE_LIST2
+   sed -i "s|$(cat $HOME/k8s/calico/custom-resources.yaml | grep cidr | awk '{print $2}')|$CID|g" $HOME/k8s/calico/custom-resources.yaml
+   docker pull $(cat $HOME/k8s/calico/images.list.txt)
+   kubectl create -f $HOME/k8s/calico/tigera-operator.yaml
+   kubectl create -f $HOME/k8s/calico/custom-resources.yaml
+   ```
+
+6. 开启防火墙
+
+   ``` sh
+   sudo firewall-cmd --permanent --zone=public --add-port=6443/tcp
+   sudo firewall-cmd --permanent --zone=public --add-port=2379-2380/tcp
+   sudo firewall-cmd --permanent --zone=public --add-port=10250-10252/tcp
+   sudo firewall-cmd --permanent --zone=public --add-port=6443/udp
+   sudo firewall-cmd --permanent --zone=public --add-port=2379-2380/udp
+   sudo firewall-cmd --permanent --zone=public --add-port=10250-10252/udp
+   sudo firewall-cmd --reload
+   ```
+
+7. 监视pod是否有正常启动
+
+   ``` sh
+   sudo watch kubectl get pods -A
+   ```
 
 PS: 安装完成后可以关闭docker代理
 
