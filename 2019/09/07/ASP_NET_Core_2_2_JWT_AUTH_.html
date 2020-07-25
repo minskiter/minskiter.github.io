@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.leavessoft.cn","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
+
+  <meta name="description" content="为什么需要JWT 服务端设置的cookie被浏览器所保护，无法跨域传输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.NET Core 2.2 JWT AUTH">
+<meta property="og:url" content="https://blog.leavessoft.cn/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html">
+<meta property="og:site_name" content="Minskiter&#39;Blog">
+<meta property="og:description" content="为什么需要JWT 服务端设置的cookie被浏览器所保护，无法跨域传输">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-07T06:40:25.000Z">
+<meta property="article:modified_time" content="2020-03-21T11:37:46.955Z">
+<meta property="article:author" content="Minskiter">
+<meta property="article:tag" content="dotnet">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.leavessoft.cn/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ASP.NET Core 2.2 JWT AUTH | Minskiter'Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171802725-1"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-171802725-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Minskiter'Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Record Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么需要JWT"><span class="nav-number">1.</span> <span class="nav-text">为什么需要JWT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOTNET-对于JWT的支持"><span class="nav-number">2.</span> <span class="nav-text">DOTNET 对于JWT的支持</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#头文件需要"><span class="nav-number">2.1.</span> <span class="nav-text">头文件需要</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jwt-token-生成"><span class="nav-number">2.2.</span> <span class="nav-text">jwt token 生成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自定义策略验证方式（Policy-“”"><span class="nav-number">2.3.</span> <span class="nav-text">自定义策略验证方式（Policy &#x3D; “”)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#startUp-cs-服务里添加服务"><span class="nav-number">2.4.</span> <span class="nav-text">startUp.cs 服务里添加服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后只要再需要权限验证的接口上添加特性"><span class="nav-number">2.5.</span> <span class="nav-text">最后只要再需要权限验证的接口上添加特性</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Minskiter</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minskiter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minskiter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minskiter@gmail.com" title="E-Mail → mailto:minskiter@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ASP.NET Core 2.2 JWT AUTH<a href="https://github.com/minskiter/minskiter.github.io/tree/dev/source/_posts/ASP_NET_Core_2_2_JWT_AUTH_.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-07 14:40:25" itemprop="dateCreated datePublished" datetime="2019-09-07T14:40:25+08:00">2019-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-21 19:37:46" itemprop="dateModified" datetime="2020-03-21T19:37:46+08:00">2020-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dotnet/" itemprop="url" rel="index"><span itemprop="name">dotnet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="为什么需要JWT"><a href="#为什么需要JWT" class="headerlink" title="为什么需要JWT"></a>为什么需要JWT</h4><ul>
+<li><p>服务端设置的cookie被浏览器所保护，无法跨域传输</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h4 id="DOTNET-对于JWT的支持"><a href="#DOTNET-对于JWT的支持" class="headerlink" title="DOTNET 对于JWT的支持"></a>DOTNET 对于JWT的支持</h4><h5 id="头文件需要"><a href="#头文件需要" class="headerlink" title="头文件需要"></a>头文件需要</h5><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Microsoft.IdentityModel.Tokens; <span class="comment">//生成jwt token</span></span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Authentication.JwtBearer; <span class="comment">// jwt auth 认证，需要用negut包安装</span></span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Authorization; <span class="comment">// 认证</span></span><br><span class="line"><span class="keyword">using</span> System.Security.Claims; <span class="comment">// 声明身份</span></span><br><span class="line"><span class="keyword">using</span> Microsoft.IdentityModel.Tokens; <span class="comment">//Tokens</span></span><br><span class="line"><span class="keyword">using</span> System.Text; <span class="comment">//编码</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="jwt-token-生成"><a href="#jwt-token-生成" class="headerlink" title="jwt token 生成"></a>jwt token 生成</h5><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Mvc;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Authentication;</span><br><span class="line"><span class="keyword">using</span> Microsoft.IdentityModel.Tokens;</span><br><span class="line"><span class="keyword">using</span> System.IdentityModel.Tokens.Jwt;</span><br><span class="line"><span class="keyword">using</span> System.Security.Claims;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">authtest.Controllers</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Route(<span class="meta-string">"[controller]/[action]"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">JwtAuthController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> IActionResult <span class="title">Login</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">           <span class="keyword">var</span> claims = <span class="keyword">new</span>[]</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">new</span> Claim(JwtRegisteredClaimNames.Sub,<span class="string">"test"</span>),</span><br><span class="line">                <span class="keyword">new</span> Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),</span><br><span class="line">                <span class="keyword">new</span> Claim(ClaimTypes.Role,<span class="string">"user"</span>),</span><br><span class="line">                <span class="keyword">new</span> Claim(<span class="string">"org"</span>,<span class="string">"true"</span>)</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">var</span> key = <span class="keyword">new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(<span class="string">"test6666666666666666666"</span>));</span><br><span class="line">            <span class="keyword">var</span> creds = <span class="keyword">new</span> SigningCredentials(key, SecurityAlgorithms.HmacSha256);</span><br><span class="line">   </span><br><span class="line">            <span class="keyword">var</span> token = <span class="keyword">new</span> JwtSecurityToken(<span class="literal">null</span>, <span class="literal">null</span>, claims, expires: DateTime.Now.AddMinutes(<span class="number">30</span>), </span><br><span class="line">                signingCredentials: creds);</span><br><span class="line">            <span class="keyword">var</span> test = <span class="keyword">new</span> JwtSecurityTokenHandler().WriteToken(token);</span><br><span class="line">            <span class="keyword">return</span> Json(test);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="自定义策略验证方式（Policy-“”"><a href="#自定义策略验证方式（Policy-“”" class="headerlink" title="自定义策略验证方式（Policy = “”)"></a>自定义策略验证方式（Policy = “”)</h5><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 用户认证需求</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">UserRequirement</span> : <span class="title">IAuthorizationRequirement</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> UserIdentity &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">UserRequirement</span>(<span class="params"><span class="keyword">string</span> UserIdentityName</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            UserIdentity = UserIdentityName;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 使用的用户认证方法</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    internal class UserAuthorizationHandler: AuthorizationHandler&lt;UserRequirement&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> Task <span class="title">HandleRequirementAsync</span>(<span class="params">AuthorizationHandlerContext context, UserRequirement requirement</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (context.User.FindFirst(requirement.UserIdentity).Value.Equals(<span class="string">"true"</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    context.Succeed(requirement);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    context.Fail();</span><br><span class="line">                &#125;                  </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span></span><br><span class="line">            &#123;</span><br><span class="line">                context.Fail();</span><br><span class="line">            &#125;          </span><br><span class="line">             <span class="keyword">return</span> Task.CompletedTask;            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="startUp-cs-服务里添加服务"><a href="#startUp-cs-服务里添加服务" class="headerlink" title="startUp.cs 服务里添加服务"></a>startUp.cs 服务里添加服务</h5><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">services.AddAuthentication(x =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">            &#125;).AddJwtBearer(option =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                option.TokenValidationParameters = <span class="keyword">new</span> Microsoft.IdentityModel.Tokens.TokenValidationParameters</span><br><span class="line">                &#123;</span><br><span class="line">                    IssuerSigningKey = <span class="keyword">new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(<span class="string">"test6666666666666666666"</span>)),</span><br><span class="line">                    ValidateAudience = <span class="literal">false</span>,</span><br><span class="line">                     ValidateIssuer = <span class="literal">false</span>, </span><br><span class="line">                    ValidateIssuerSigningKey = <span class="literal">true</span>, <span class="comment">// 签名校对</span></span><br><span class="line">                    ValidateLifetime = <span class="literal">true</span>, <span class="comment">// 时间校对</span></span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            services.AddAuthorization(options =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                options.AddPolicy(<span class="string">"org"</span>, policy =&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    policy.Requirements.Add(<span class="keyword">new</span> UserRequirement(<span class="string">"org"</span>));</span><br><span class="line">                &#125;);</span><br><span class="line">                options.AddPolicy(<span class="string">"std"</span>, policy =&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    policy.Requirements.Add(<span class="keyword">new</span> UserRequirement(<span class="string">"std"</span>));</span><br><span class="line">                &#125;);</span><br><span class="line">                options.AddPolicy(<span class="string">"head"</span>, policy =&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    policy.Requirements.Add(<span class="keyword">new</span> UserRequirement(<span class="string">"head"</span>));</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="最后只要再需要权限验证的接口上添加特性"><a href="#最后只要再需要权限验证的接口上添加特性" class="headerlink" title="最后只要再需要权限验证的接口上添加特性"></a>最后只要再需要权限验证的接口上添加特性</h5><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Authorize(Policy=<span class="meta-string">"&#123;可以是org可以是std可以是head&#125;"</span>)</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/dotnet/" rel="tag"># dotnet</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/07/PythonSpider.html" rel="prev" title="Python 定向爬虫python">
+      <i class="fa fa-chevron-left"></i> Python 定向爬虫python
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/07/PoylaTheorem.html" rel="next" title="poyla定理">
+      poyla定理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17013175号-1 </a>
+      <img src="http://www.beian.gov.cn/portal/download" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=17013175" rel="noopener" target="_blank">1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Minskiter</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/next-theme/pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="pjax">
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>

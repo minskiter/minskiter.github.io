@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.leavessoft.cn","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Minskiter&#39;Blog">
+<meta property="og:url" content="https://blog.leavessoft.cn/index.html">
+<meta property="og:site_name" content="Minskiter&#39;Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Minskiter">
+<meta property="article:tag" content="Code">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.leavessoft.cn/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Minskiter'Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171802725-1"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-171802725-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Minskiter'Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Record Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Minskiter</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minskiter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minskiter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minskiter@gmail.com" title="E-Mail → mailto:minskiter@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content index posts-expand">
+          
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/07/25/probability-theory-2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/25/probability-theory-2.html" class="post-title-link" itemprop="url">基础概率论2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-25 18:46:45 / 修改时间：18:47:13" itemprop="dateCreated datePublished" datetime="2020-07-25T18:46:45+08:00">2020-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/math/" itemprop="url" rel="index"><span itemprop="name">math</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="分布函数（证明是否是分布函数）"><a href="#分布函数（证明是否是分布函数）" class="headerlink" title="分布函数（证明是否是分布函数）"></a>分布函数（证明是否是分布函数）</h4><p>$$<br>F(X)=P(X\leq x),x\in(-\infty,+\infty)，记作F_X(x)非负有界性<br>$$</p>
+<p>$$<br>F(-\infty)=\lim_{x\rightarrow-\infty}F(x)=0,F(+\infty)=\lim_{x\rightarrow+\infty}F(x)=1<br>$$</p>
+<ol>
+<li>单调不减性</li>
+</ol>
+<p>$$<br>x_1&lt;x_2,F(x_1)\leq F(x_2)<br>$$</p>
+<ol start="2">
+<li>右连续性</li>
+</ol>
+<p>$$<br>F(x+0)=F(x)<br>$$</p>
+<p>$$<br>P(X&gt;x)=1-F(x) \<br>P(X&lt;x)=F(x-0) \<br>P(X=x)=F(x)-F(x-0) \<br>P(x_1&lt;X\leq x_2)=F(x_2)-F(x_1) \<br>P(x_1\leq X \leq x_2)=F(x_2)-F(x_1 -0) \<br>P(x_1&lt;X&lt;x_2)=F(x_2 -0)-F(x_1)<br>$$</p>
+<h3 id="离散型分布函数"><a href="#离散型分布函数" class="headerlink" title="离散型分布函数"></a>离散型分布函数</h3><ol>
+<li>分布律（概率分布）</li>
+</ol>
+<p>$$<br>P(X=x_k)=p_k,k=1,2,\cdots<br>$$</p>
+<ol start="2">
+<li><p>分布列</p>
+<table>
+<thead>
+<tr>
+<th>X</th>
+<th align="left">$x_1$</th>
+<th>$x_2$</th>
+<th align="left">$\cdots$</th>
+<th>$x_k$</th>
+<th>$\cdots$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P</td>
+<td align="left">$p_1$</td>
+<td>$p_2$</td>
+<td align="left">$\cdots$</td>
+<td>$p_k$</td>
+<td>$\cdots$</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<p>性质<br>$$<br>p_k\geq 0,k=1,2,\cdots \<br>\sum_kp_k=1<br>$$</p>
+<h5 id="01-分布-伯努利分布"><a href="#01-分布-伯努利分布" class="headerlink" title="01 分布(伯努利分布)"></a>01 分布(伯努利分布)</h5><p>$$<br>P(X=1)=p,P(X=0)=1-p (0&lt;p&lt;1) \<br>P(X=k)=p^k(1-p)^{1-k} (k=0,1;0&lt;p&lt;1) \<br>X=X(\omega)=\left{<br>\begin{array}{<strong>rcl</strong>}<br>0, 当\omega=\omega_1 &amp; \<br>1, 当\omega=\omega_2 \<br>\end{array}<br>\right.<br>$$</p>
+<h5 id="二项分布（n次伯努利实验）"><a href="#二项分布（n次伯努利实验）" class="headerlink" title="二项分布（n次伯努利实验）"></a>二项分布（n次伯努利实验）</h5><p>$$<br>P(X=k)=C^k_np^kq^{n-k},k=0,1,2,\cdots,n;0&lt;1=1-p&lt;1 \<br>X\sim B(n,p)<br>$$</p>
+<p>二项分布的最有可能取值<br>$$<br>k_0=[(n+1)p]<br>$$</p>
+<h5 id="泊松分布"><a href="#泊松分布" class="headerlink" title="泊松分布"></a>泊松分布</h5><p>$$<br>P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},k=0,1,2,\cdots \<br>X\sim P(\lambda)<br>$$</p>
+<p>$$<br>f(x)=e^x=\sum_{k=0}^\infty\frac{x^k}{k!}<br>$$</p>
+<h6 id="泊松定理"><a href="#泊松定理" class="headerlink" title="泊松定理"></a>泊松定理</h6><p>$$<br>X^n\sim B(n,p_n)即P(X_n=k)=C^k_np^k_n(1-p_n)^{n-k},k=0,1,2,\cdots,n \<br>当n很大，p很小的时候,np_n=\lambda&gt;0 \<br>\lim_{n\rightarrow\infty}P(X_n=k)=e^{-\lambda}\frac{\lambda^k}{k!},k=0,1,2,\cdots \<br>$$</p>
+<h5 id="几何分布"><a href="#几何分布" class="headerlink" title="几何分布"></a>几何分布</h5><p>$$<br>P(X=k)=(1-p)^{k-1}p(k=1,2,\cdots) \<br>X\sim G(p)<br>$$</p>
+<h5 id="超几何分布（两类问题）"><a href="#超几何分布（两类问题）" class="headerlink" title="超几何分布（两类问题）"></a>超几何分布（两类问题）</h5><p>不重复抽取选择其中一类X的概率<br>$$<br>P(X=k)=\frac{C^k_MC^{n-k}_{N-M}}{C^n_N}(k=s,s+1,\cdots,t) \<br>X\sim H(N,M,n)<br>$$</p>
+<h3 id="连续型随机变量"><a href="#连续型随机变量" class="headerlink" title="连续型随机变量"></a>连续型随机变量</h3><p>$$<br>F(x)=P(X\leq x)=\int_{-\infty}^xf(t)dt \<br>概率密度f_X(x)<br>$$</p>
+<ol>
+<li>$f(x)\geq0$</li>
+<li>$\int_{-\infty}^{+\infty}f(x)dx=1$</li>
+<li>$P(a&lt;X\leq b)=F(b)-F(a)=\int_{a}^{b}f(x)dx$</li>
+<li>$P(X=x)=F(x)-F(x-0)=0$</li>
+<li>$F^{‘}(x)=f(x)$</li>
+</ol>
+<h5 id="均匀分布"><a href="#均匀分布" class="headerlink" title="均匀分布"></a>均匀分布</h5><p>$$<br>f(x)=\left{<br>\begin{array}{<strong>rlc</strong>}<br>\frac{1}{b-a},&amp; a&lt;x&lt;b \<br>0, &amp; 其它<br>\end{array}<br>\right. \<br>X\sim U(a,b) \<br>F(x)=\left{<br>\begin{array}{<strong>rlc</strong>}<br>0, &amp; x&lt;a, \<br>\frac{x-a}{b-a}, &amp; a\leq x&lt;b, \<br>1, &amp; x\geq b.<br>\end{array}<br>\right.<br>$$</p>
+<h5 id="指数分布"><a href="#指数分布" class="headerlink" title="指数分布"></a>指数分布</h5><p>$$<br>f(x)=\left{<br>\begin{array}{<strong>l</strong>}<br>\lambda e^{-\lambda x} ,&amp; x&gt;0 \<br>0, &amp; x\leq 0<br>\end{array}<br>\right. \<br>F(x)=\left{<br>\begin{array}{<strong>l</strong>}<br>1-e^{-\lambda x}, &amp; x&gt;0, \<br>0, &amp; x\leq0.<br>\end{array}<br>\right.<br>$$</p>
+<h5 id="正态分布"><a href="#正态分布" class="headerlink" title="正态分布"></a>正态分布</h5><p>$$<br>f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}},-\infty&lt;x&lt;+\infty \<br>F(x)=\frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{(t-\mu)^2}{2\sigma^2}}dt,-\infty&lt;x&lt;+\infty<br>$$</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/07/25/probability-theory-1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/25/probability-theory-1.html" class="post-title-link" itemprop="url">基础概率论1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-25 18:45:42 / 修改时间：18:46:37" itemprop="dateCreated datePublished" datetime="2020-07-25T18:45:42+08:00">2020-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/math/" itemprop="url" rel="index"><span itemprop="name">math</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="概率"><a href="#概率" class="headerlink" title="概率"></a>概率</h4><ol>
+<li><p>统计概率<br>$$<br>P(A)=p\simeq f_n(A)=\frac mn<br>$$</p>
+</li>
+<li><p>古典概率<br>$$<br>P(A)=\frac{基数事件数}{所有可能数}=\frac mn<br>$$</p>
+<ul>
+<li>组合（从n个取出m个）无放回排列<br>$$<br>A^m_n=\frac{n!}{n!-m!}<br>$$</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>排列(从n个取出m个)无放回<br>$$<br>C_n^m=\frac{n!}{m!(n-m)!}=\frac{A_n^m}{m!}<br>$$</li>
+</ul>
+<ol start="3">
+<li>几何概率<br>$$<br>P(A)=\frac{m(A)}{m(\Omega)}=\frac{A的几何度量}{\Omega的几何度量}<br>$$</li>
+</ol>
+<h4 id="概率公式"><a href="#概率公式" class="headerlink" title="概率公式"></a>概率公式</h4><ol>
+<li><p>减法公式<br>$$<br>P(A-B)=P(A)-P(AB)<br>$$</p>
+</li>
+<li><p>加法公式<br>$$<br>P(A\cup B)=P(A)+P(B)-P(AB)<br>$$</p>
+</li>
+</ol>
+<h4 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h4><p>$$<br>P(A|B)=\frac{P(AB)}{P(B)}<br>$$</p>
+<p>$$<br>P(AB)=P(A)P(B|A)=P(B)P(A|B)<br>$$</p>
+<h4 id="全概率"><a href="#全概率" class="headerlink" title="全概率"></a>全概率</h4><p>$$<br>P(B)=\sum_{i=1}^{n}P(A_i)P(B|A_i)<br>$$</p>
+<h4 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h4><p>$$<br>P(A_i|B)=\frac{P(A_i)P(B|A_i)}{\sum_{k=1}^{n}P(A_k)P(B|A_k)}<br>$$</p>
+<h4 id="独立性"><a href="#独立性" class="headerlink" title="独立性"></a>独立性</h4><p>$$<br>P(AB)=P(A)P(B)\Rightarrow AB独立<br>$$</p>
+<p>$$<br>ABC相互独立，前三为两两相互独立\left{<br>    \begin{array}{<strong>lr</strong>}<br>    P(AB)=P(A)P(B) &amp; \<br>    P(AC)=P(A)P(C) &amp; \<br>    P(BC)=P(B)P(C) &amp; \<br>    P(ABC)=P(A)P(B)P(C)<br>    \end{array}<br>\right.<br>$$</p>
+<h4 id="等比数列"><a href="#等比数列" class="headerlink" title="等比数列"></a>等比数列</h4><ol>
+<li>定义式</li>
+</ol>
+<p>$$<br>\frac{a_n}{a_{n-1}}=q (n&gt;2,a_{n-1}\neq0,q\neq0)<br>$$</p>
+<ol start="2">
+<li><p>通项公式：<br>$$<br>a_n=a_1\cdot q^{n-1}<br>$$</p>
+</li>
+<li><p>求和公式：<br>$$<br>S_n=na_1(q=1) \<br>S_n=\frac{a_1(1-q^n)}{1-q} (q\neq1)<br>$$</p>
+</li>
+</ol>
+<h4 id="伯努利概率实验"><a href="#伯努利概率实验" class="headerlink" title="伯努利概率实验"></a>伯努利概率实验</h4><ol>
+<li><p>定义：每次实验中的概率不变，都是p，即P(A)=p</p>
+</li>
+<li><p>n重伯努利实验<br>$$<br>p_n(k)=C^k_np^k(1-p)^{n-k}(k=0,1,2,\cdots,n)<br>$$</p>
+</li>
+<li><p>n重伯努利实验首次发送的概率<br>$$<br>g(k)=(1-p)^{k-1}p (k=1,2,\cdots)<br>$$</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/07/24/k8s-deploy.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/24/k8s-deploy.html" class="post-title-link" itemprop="url">k8s kubeadm 集群部署实践</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-24 12:10:45 / 修改时间：18:30:34" itemprop="dateCreated datePublished" datetime="2020-07-24T12:10:45+08:00">2020-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kuberneters/" itemprop="url" rel="index"><span itemprop="name">kuberneters</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="K8s-Clusters-Deploy"><a href="#K8s-Clusters-Deploy" class="headerlink" title="K8s Clusters Deploy"></a>K8s Clusters Deploy</h3><h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><ol>
+<li>Centos 7</li>
+<li>内网 192.168.101.0/24</li>
+</ol>
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><ol>
+<li>SSR（酸酸乳代理）</li>
+<li>FRP</li>
+</ol>
+<h4 id="集成一键脚本（脚本结构参考wait-for-it-sh"><a href="#集成一键脚本（脚本结构参考wait-for-it-sh" class="headerlink" title="集成一键脚本（脚本结构参考wait_for_it.sh)"></a>集成一键脚本（脚本结构参考wait_for_it.sh)</h4><p><a href="https://github.com/minskiter/Centos7k8sScript" target="_blank" rel="noopener">https://github.com/minskiter/Centos7k8sScript</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/24/k8s-deploy.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/07/24/dotnetcore-classlib.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/24/dotnetcore-classlib.html" class="post-title-link" itemprop="url">dotnetcore 类库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-24 12:03:09 / 修改时间：13:17:10" itemprop="dateCreated datePublished" datetime="2020-07-24T12:03:09+08:00">2020-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dotnet/" itemprop="url" rel="index"><span itemprop="name">dotnet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+<li>vscode</li>
+<li>dotnet core 3.1 sdk</li>
+<li>centos 8</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/24/dotnetcore-classlib.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/03/24/DotNet-Core-WEB-API-data.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/24/DotNet-Core-WEB-API-data.html" class="post-title-link" itemprop="url">DotNet Core WEB API 数据注释本地化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-24 20:29:00" itemprop="dateCreated datePublished" datetime="2020-03-24T20:29:00+08:00">2020-03-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-24 12:11:47" itemprop="dateModified" datetime="2020-07-24T12:11:47+08:00">2020-07-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dotnet/" itemprop="url" rel="index"><span itemprop="name">dotnet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+<li>dotnet core 3.1 LTS</li>
+</ul>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><ul>
+<li>为了让WEB API后端支持中文友好信息（只是我单纯的前端不想多写判断代码而已。。。），想把原本的ModelError英文变成中文返回</li>
+<li>当然数据验证可以重构一个中文版本，但是毕竟官方有轮子何必自己造轮子呢。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/24/DotNet-Core-WEB-API-data.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/03/21/permission-universal-manager.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/21/permission-universal-manager.html" class="post-title-link" itemprop="url">WEB通用权限管理设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-21 19:40:16 / 修改时间：20:06:04" itemprop="dateCreated datePublished" datetime="2020-03-21T19:40:16+08:00">2020-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dotnet/" itemprop="url" rel="index"><span itemprop="name">dotnet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="权限管理是WEB应用及其它应用所必须有的一个模块"><a href="#权限管理是WEB应用及其它应用所必须有的一个模块" class="headerlink" title="权限管理是WEB应用及其它应用所必须有的一个模块"></a>权限管理是WEB应用及其它应用所必须有的一个模块</h3><h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><ul>
+<li>不同管理员权限不同</li>
+<li>用户所有者</li>
+<li>不同用户可触及的资源不同</li>
+<li>尽可能的高效</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/21/permission-universal-manager.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2019/09/07/GTKWindowConfig.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/07/GTKWindowConfig.html" class="post-title-link" itemprop="url">GTK windows 编译环境配置gtk</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-07 14:40:25" itemprop="dateCreated datePublished" datetime="2019-09-07T14:40:25+08:00">2019-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-24 11:45:59" itemprop="dateModified" datetime="2020-07-24T11:45:59+08:00">2020-07-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="GTKwin配置-Clion-IDE配置"><a href="#GTKwin配置-Clion-IDE配置" class="headerlink" title="GTKwin配置+Clion IDE配置"></a>GTKwin配置+Clion IDE配置</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/07/GTKWindowConfig.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2019/09/07/CentosConfigSMTP.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/07/CentosConfigSMTP.html" class="post-title-link" itemprop="url">利用NetEase邮箱进行邮件验证</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-07 14:40:25" itemprop="dateCreated datePublished" datetime="2019-09-07T14:40:25+08:00">2019-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-21 19:37:15" itemprop="dateModified" datetime="2020-03-21T19:37:15+08:00">2020-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Aliyun-默认封25端口-所以只能转用465端口发邮件"><a href="#Aliyun-默认封25端口-所以只能转用465端口发邮件" class="headerlink" title="Aliyun 默认封25端口 所以只能转用465端口发邮件"></a>Aliyun 默认封25端口 所以只能转用465端口发邮件</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/07/CentosConfigSMTP.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2019/09/07/PoylaTheorem.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/07/PoylaTheorem.html" class="post-title-link" itemprop="url">poyla定理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-07 14:40:25" itemprop="dateCreated datePublished" datetime="2019-09-07T14:40:25+08:00">2019-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-21 19:38:33" itemprop="dateModified" datetime="2020-03-21T19:38:33+08:00">2020-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/math/" itemprop="url" rel="index"><span itemprop="name">math</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>Poyla 定理</strong><br>  设有n个对象，G是这n个对象上的置换群，用m种颜色涂染这n个对象，每个对象涂染一种颜色。若一种染色方案在群G的作用下变为另一种方案，则这两种方案当作是一种方案。那么存在的方案个数为：</p>
+<p>$l=\frac{1}{G}[m^{c(a_1)}+m^{c(a_2)}+…+m^{c(a_n)}]=\frac{1}{G}[\sum_{i=1}^{n} m^{c(a_i)}]$</p>
+<p><em>其中G为对象的个数,$c(a_i)$为该置换的循环节数</em></p>
+<p><strong>例题</strong><br><a href="http://acm.fzu.edu.cn/problem.php?pid=1023" target="_blank" rel="noopener">foj 1023</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html" class="post-title-link" itemprop="url">ASP.NET Core 2.2 JWT AUTH</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-07 14:40:25" itemprop="dateCreated datePublished" datetime="2019-09-07T14:40:25+08:00">2019-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-21 19:37:46" itemprop="dateModified" datetime="2020-03-21T19:37:46+08:00">2020-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dotnet/" itemprop="url" rel="index"><span itemprop="name">dotnet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="为什么需要JWT"><a href="#为什么需要JWT" class="headerlink" title="为什么需要JWT"></a>为什么需要JWT</h4><ul>
+<li><p>服务端设置的cookie被浏览器所保护，无法跨域传输</p></li></ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17013175号-1 </a>
+      <img src="http://www.beian.gov.cn/portal/download" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=17013175" rel="noopener" target="_blank">1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Minskiter</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/next-theme/pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      const script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>
