@@ -202,13 +202,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -252,6 +252,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/07/25/rbac-restful.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Minskiter">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Minskiter'Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/25/rbac-restful.html" class="post-title-link" itemprop="url">rbac-restful</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-25 21:15:15 / 修改时间：22:50:51" itemprop="dateCreated datePublished" datetime="2020-07-25T21:15:15+08:00">2020-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/permission/" itemprop="url" rel="index"><span itemprop="name">permission</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="rbac-基于restful资源resource的通用角色控制权限系统">RBAC 基于Restful资源（resource）的通用角色控制权限系统</h3>
+<h4 id="首先明确权限控制的两大对象">首先明确权限控制的两大对象</h4>
+<ul>
+<li><p>资源（resouce）</p>
+<p>在restful风格的url中，每个url代表着唯一的资源</p></li>
+<li><p>操作（operator）</p>
+<p>对于资源的操作基本分为 查看(read)，修改(edit)，删除(delete)以及其它自定义操作</p></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/25/rbac-restful.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/07/25/probability-theory-2.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -277,7 +359,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-25 18:46:45 / 修改时间：19:15:08" itemprop="dateCreated datePublished" datetime="2020-07-25T18:46:45+08:00">2020-07-25</time>
+              <time title="创建时间：2020-07-25 18:46:45 / 修改时间：22:45:58" itemprop="dateCreated datePublished" datetime="2020-07-25T18:46:45+08:00">2020-07-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -300,7 +382,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="分布函数证明是否是分布函数">分布函数（证明是否是分布函数）</h4>
+          <a id="more"></a>
+<h4 id="分布函数证明是否是分布函数">分布函数（证明是否是分布函数）</h4>
 <p><span class="math display">\[
 F(X)=P(X\leq x),x\in(-\infty,+\infty)，记作F_X(x)非负有界性
 \]</span></p>
@@ -320,11 +403,11 @@ x_1&lt;x_2,F(x_1)\leq F(x_2)
 F(x+0)=F(x)
 \]</span></p>
 <p><span class="math display">\[
-P(X&gt;x)=1-F(x) \\
-P(X&lt;x)=F(x-0) \\
-P(X=x)=F(x)-F(x-0) \\
-P(x_1&lt;X\leq x_2)=F(x_2)-F(x_1) \\
-P(x_1\leq X \leq x_2)=F(x_2)-F(x_1 -0) \\
+P(X&gt;x)=1-F(x) \\\\
+P(X&lt;x)=F(x-0) \\\\
+P(X=x)=F(x)-F(x-0) \\\\
+P(x_1&lt;X\leq x_2)=F(x_2)-F(x_1) \\\\
+P(x_1\leq X \leq x_2)=F(x_2)-F(x_1 -0) \\\\
 P(x_1&lt;X&lt;x_2)=F(x_2 -0)-F(x_1)
 \]</span></p>
 <h3 id="离散型分布函数">离散型分布函数</h3>
@@ -365,8 +448,8 @@ p_k\geq 0,k=1,2,\cdots \\
 \]</span></p>
 <h5 id="分布伯努利分布">01 分布(伯努利分布)</h5>
 <p><span class="math display">\[
-P(X=1)=p,P(X=0)=1-p (0&lt;p&lt;1) \\
-P(X=k)=p^k(1-p)^{1-k} (k=0,1;0&lt;p&lt;1) \\
+P(X=1)=p,P(X=0)=1-p (0&lt;p&lt;1) \\\\
+P(X=k)=p^k(1-p)^{1-k} (k=0,1;0&lt;p&lt;1) \\\\
 X=X(\omega)=\left\{
 \begin{array}{**rcl**}
 0, 当\omega=\omega_1 &amp; \\
@@ -376,7 +459,7 @@ X=X(\omega)=\left\{
 \]</span></p>
 <h5 id="二项分布n次伯努利实验">二项分布（n次伯努利实验）</h5>
 <p><span class="math display">\[
-P(X=k)=C^k_np^kq^{n-k},k=0,1,2,\cdots,n;0&lt;1=1-p&lt;1 \\
+P(X=k)=C^k_np^kq^{n-k},k=0,1,2,\cdots,n;0&lt;1=1-p&lt;1 \\\\
 X\sim B(n,p)
 \]</span></p>
 <p>二项分布的最有可能取值 <span class="math display">\[
@@ -384,7 +467,7 @@ k_0=[(n+1)p]
 \]</span></p>
 <h5 id="泊松分布">泊松分布</h5>
 <p><span class="math display">\[
-P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},k=0,1,2,\cdots \\
+P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},k=0,1,2,\cdots \\\\
 X\sim P(\lambda)
 \]</span></p>
 <p><span class="math display">\[
@@ -392,9 +475,9 @@ f(x)=e^x=\sum_{k=0}^\infty\frac{x^k}{k!}
 \]</span></p>
 <h6 id="泊松定理">泊松定理</h6>
 <p><span class="math display">\[
-X^n\sim B(n,p_n)即P(X_n=k)=C^k_np^k_n(1-p_n)^{n-k},k=0,1,2,\cdots,n \\
-当n很大，p很小的时候,np_n=\lambda&gt;0 \\
-\lim_{n\rightarrow\infty}P(X_n=k)=e^{-\lambda}\frac{\lambda^k}{k!},k=0,1,2,\cdots \\
+X^n\sim B(n,p_n)即P(X_n=k)=C^k_np^k_n(1-p_n)^{n-k},k=0,1,2,\cdots,n \\\\
+当n很大，p很小的时候,np_n=\lambda&gt;0 \\\\
+\lim_{n\rightarrow\infty}P(X_n=k)=e^{-\lambda}\frac{\lambda^k}{k!},k=0,1,2,\cdots \\\\
 \]</span></p>
 <h5 id="几何分布">几何分布</h5>
 <p><span class="math display">\[
@@ -455,6 +538,25 @@ F(x)=\left\{
 f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}},-\infty&lt;x&lt;+\infty \\
 F(x)=\frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{(t-\mu)^2}{2\sigma^2}}dt,-\infty&lt;x&lt;+\infty
 \]</span></p>
+<ol type="1">
+<li>f(x)的图形关于x=<span class="math inline">\(\mu\)</span>对称</li>
+<li>f(x)在x=<span class="math inline">\(\mu\)</span>处达到最大，最大值为<span class="math inline">\(\frac{1}{\sqrt{2\pi}\sigma}\)</span></li>
+<li>f(x)在<span class="math inline">\(x=\mu\pm\sigma\)</span>处有拐点</li>
+<li>f(x)以x轴为渐近线</li>
+</ol>
+<h5 id="分布函数法">分布函数法</h5>
+<ol type="1">
+<li>建立随机变量函数Y与X的分布函数之间的关系得到Y=g(X)的分布函数<span class="math inline">\(F_Y(y)\)</span></li>
+<li>对<span class="math inline">\(F_Y(y)\)</span>求导得到概率密度函数<span class="math inline">\(f_Y(y)\)</span></li>
+</ol>
+<p><span class="math display">\[
+f_Y(y)=\left\{
+\begin{array}{**lr**}
+f_X(g^{-1}(y))|\frac{d}{dy}g^{-1}(y)|, &amp; y\in(\alpha,\beta) \\
+0, &amp; y\notin(\alpha,\beta)
+\end{array}
+\right.
+\]</span></p>
 
       
     </div>
@@ -499,7 +601,7 @@ F(x)=\frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{(t-\mu)^2}{2\sigma^2
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-25 18:45:42 / 修改时间：19:14:57" itemprop="dateCreated datePublished" datetime="2020-07-25T18:45:42+08:00">2020-07-25</time>
+              <time title="创建时间：2020-07-25 18:45:42 / 修改时间：22:45:54" itemprop="dateCreated datePublished" datetime="2020-07-25T18:45:42+08:00">2020-07-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -522,7 +624,8 @@ F(x)=\frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{(t-\mu)^2}{2\sigma^2
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="概率">概率</h4>
+          <a id="more"></a>
+<h4 id="概率">概率</h4>
 <ol type="1">
 <li><p>统计概率 <span class="math display">\[
 P(A)=p\simeq f_n(A)=\frac mn
@@ -862,88 +965,6 @@ g(k)=(1-p)^{k-1}p (k=1,2,\cdots)
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/03/24/DotNet-Core-WEB-API-data.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/03/21/permission-universal-manager.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Minskiter">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Minskiter'Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/21/permission-universal-manager.html" class="post-title-link" itemprop="url">WEB通用权限管理设计</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-21 19:40:16 / 修改时间：20:06:04" itemprop="dateCreated datePublished" datetime="2020-03-21T19:40:16+08:00">2020-03-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dotnet/" itemprop="url" rel="index"><span itemprop="name">dotnet</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="权限管理是web应用及其它应用所必须有的一个模块">权限管理是WEB应用及其它应用所必须有的一个模块</h3>
-<h4 id="需求">需求</h4>
-<ul>
-<li>不同管理员权限不同</li>
-<li>用户所有者</li>
-<li>不同用户可触及的资源不同</li>
-<li>尽可能的高效</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/21/permission-universal-manager.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

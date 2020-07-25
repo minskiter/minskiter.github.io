@@ -22,20 +22,25 @@
     var CONFIG = {"hostname":"blog.leavessoft.cn","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":true,"nav":{"disqus":{"text":"Load Disqus","order":-1}}},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
   </script>
 
-  <meta name="description" content="权限管理是WEB应用及其它应用所必须有的一个模块 需求  不同管理员权限不同 用户所有者 不同用户可触及的资源不同 尽可能的高效">
+  <meta name="description" content="RBAC 基于Restful资源（resource）的通用角色控制权限系统 首先明确权限控制的两大对象  资源（resouce） 在restful风格的url中，每个url代表着唯一的资源 操作（operator） 对于资源的操作基本分为 查看(read)，修改(edit)，删除(delete)以及其它自定义操作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WEB通用权限管理设计">
-<meta property="og:url" content="https://blog.leavessoft.cn/2020/03/21/permission-universal-manager.html">
+<meta property="og:title" content="rbac-restful">
+<meta property="og:url" content="https://blog.leavessoft.cn/2020/07/25/rbac-restful.html">
 <meta property="og:site_name" content="Minskiter&#39;Blog">
-<meta property="og:description" content="权限管理是WEB应用及其它应用所必须有的一个模块 需求  不同管理员权限不同 用户所有者 不同用户可触及的资源不同 尽可能的高效">
+<meta property="og:description" content="RBAC 基于Restful资源（resource）的通用角色控制权限系统 首先明确权限控制的两大对象  资源（resouce） 在restful风格的url中，每个url代表着唯一的资源 操作（operator） 对于资源的操作基本分为 查看(read)，修改(edit)，删除(delete)以及其它自定义操作">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-21T11:40:16.000Z">
-<meta property="article:modified_time" content="2020-03-21T12:06:04.740Z">
+<meta property="og:image" content="https://blog.leavessoft.cn/2020/07/25/rbac-restful/%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1.drawio.png">
+<meta property="og:image" content="https://blog.leavessoft.cn/2020/07/25/rbac-restful/%E8%B5%84%E6%BA%90%E4%BA%A4%E5%8F%89bug.drawio.png">
+<meta property="og:image" content="https://blog.leavessoft.cn/2020/07/25/rbac-restful/%E5%AE%9E%E9%99%85%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1.drawio.png">
+<meta property="article:published_time" content="2020-07-25T13:15:15.000Z">
+<meta property="article:modified_time" content="2020-07-25T14:50:51.660Z">
 <meta property="article:author" content="Minskiter">
-<meta property="article:tag" content="dotnet">
+<meta property="article:tag" content="rbac">
+<meta property="article:tag" content="restful">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.leavessoft.cn/2020/07/25/rbac-restful/%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1.drawio.png">
 
-<link rel="canonical" href="https://blog.leavessoft.cn/2020/03/21/permission-universal-manager.html">
+<link rel="canonical" href="https://blog.leavessoft.cn/2020/07/25/rbac-restful.html">
 
 
 <script data-pjax class="page-configurations">
@@ -48,7 +53,7 @@
   };
 </script>
 
-  <title>WEB通用权限管理设计 | Minskiter'Blog</title>
+  <title>rbac-restful | Minskiter'Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171802725-1"></script>
     <script data-pjax>
@@ -186,7 +191,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限管理是web应用及其它应用所必须有的一个模块"><span class="nav-number">1.</span> <span class="nav-text">权限管理是WEB应用及其它应用所必须有的一个模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求"><span class="nav-number">1.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构想"><span class="nav-number">1.2.</span> <span class="nav-text">构想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#难点"><span class="nav-number">1.3.</span> <span class="nav-text">难点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考文档"><span class="nav-number">1.4.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#rbac-基于restful资源resource的通用角色控制权限系统"><span class="nav-number">1.</span> <span class="nav-text">RBAC 基于Restful资源（resource）的通用角色控制权限系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先明确权限控制的两大对象"><span class="nav-number">1.1.</span> <span class="nav-text">首先明确权限控制的两大对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在此之前曾经考虑将数据对象和url模板完全分离"><span class="nav-number">1.2.</span> <span class="nav-text">在此之前曾经考虑将数据对象和url模板完全分离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限表定义"><span class="nav-number">1.3.</span> <span class="nav-text">权限表定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限资源核心的模块"><span class="nav-number">1.4.</span> <span class="nav-text">权限——资源核心的模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限生成"><span class="nav-number">1.5.</span> <span class="nav-text">权限生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限自动分配手动分配则由接口提供ui操作不在考虑范围内"><span class="nav-number">1.6.</span> <span class="nav-text">权限自动分配（手动分配则由接口提供UI操作，不在考虑范围内）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开源代码后续补充"><span class="nav-number">1.7.</span> <span class="nav-text">开源代码（后续补充）</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -207,13 +212,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -258,7 +263,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/03/21/permission-universal-manager.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.leavessoft.cn/2020/07/25/rbac-restful.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -271,7 +276,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          WEB通用权限管理设计<a href="https://github.com/minskiter/minskiter.github.io/tree/dev/source/_posts/permission-universal-manager.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+          rbac-restful<a href="https://github.com/minskiter/minskiter.github.io/tree/dev/source/_posts/rbac-restful.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
         </h1>
 
         <div class="post-meta">
@@ -282,7 +287,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-21 19:40:16 / 修改时间：20:06:04" itemprop="dateCreated datePublished" datetime="2020-03-21T19:40:16+08:00">2020-03-21</time>
+              <time title="创建时间：2020-07-25 21:15:15 / 修改时间：22:50:51" itemprop="dateCreated datePublished" datetime="2020-07-25T21:15:15+08:00">2020-07-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -290,7 +295,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dotnet/" itemprop="url" rel="index"><span itemprop="name">dotnet</span></a>
+                  <a href="/categories/permission/" itemprop="url" rel="index"><span itemprop="name">permission</span></a>
                 </span>
             </span>
 
@@ -305,30 +310,131 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="权限管理是web应用及其它应用所必须有的一个模块">权限管理是WEB应用及其它应用所必须有的一个模块</h3>
-<h4 id="需求">需求</h4>
+        <h3 id="rbac-基于restful资源resource的通用角色控制权限系统">RBAC 基于Restful资源（resource）的通用角色控制权限系统</h3>
+<h4 id="首先明确权限控制的两大对象">首先明确权限控制的两大对象</h4>
 <ul>
-<li>不同管理员权限不同</li>
-<li>用户所有者</li>
-<li>不同用户可触及的资源不同</li>
-<li>尽可能的高效</li>
+<li><p>资源（resouce）</p>
+<p>在restful风格的url中，每个url代表着唯一的资源</p></li>
+<li><p>操作（operator）</p>
+<p>对于资源的操作基本分为 查看(read)，修改(edit)，删除(delete)以及其它自定义操作</p></li>
 </ul>
 <a id="more"></a>
-<h4 id="构想">构想</h4>
+<p>对于restful来说</p>
+<p>method+url 即代表了操作+资源</p>
+<p>对于资源来说：</p>
+<p>restful的🔗资源分为两大类: 
+
+1. /api/user/session  
+
+   不含{route}变量，这种资源仅仅在编程时初始化创建
+
+2. /api/user/{userid}/phone    
+
+   含有{route}变量，这个变量通常对应着数据库里的唯一一个数据对象——通常为主键。
+
+   包含关系：对于/api/usergroup/{groupid}/user/{userid}则有两个资源对象，如果是直接生成唯一资源，对于n个group，m个user意味着有n*m个链接，如果根据这个单独生成资源对象，则数据量增长为平方级，考虑到数据对象要达到万以上的数量，则资源链接将为上亿级，虽然这100%能满足单一控制，但是实际并不需要，而且数据量过多大大影响CRUD效率
+
+   考虑这两个资源对象为层次父子关系，即group里包含user，因此该url的对象权重group权值更大，因此考虑对于这种资源，考虑将第一个对象纳入资源表，后一个对象为通用识别（在mysql里为%，但是考虑到url中文字符包含单个%,因此修改为{%})，如果需要单独限制后一个对象，完全有类型于/api/user/{userid}类型的url来控制。
+
+   对于三变量（一般不会出现这种url）全部只保留第一对象
+
+   *因此在创建url模板的时候需要考虑是否第一对象对于其余对象有绝对的层次关系*
+
+</p>
+<h4 id="在此之前曾经考虑将数据对象和url模板完全分离">在此之前曾经考虑将数据对象和url模板完全分离</h4>
+<figure>
+<img data-src="rbac-restful/资源对象.drawio.png" alt="资源对象.drawio"><figcaption>资源对象.drawio</figcaption>
+</figure>
+<p>这样有个明显的bug</p>
+<figure>
+<img data-src="rbac-restful/资源交叉bug.drawio.png" alt="资源交叉bug.drawio"><figcaption>资源交叉bug.drawio</figcaption>
+</figure>
+<p>想实现上面的效果结果会成为下面的效果，因此这种分离方案不可行。因此就有了以上的第一对象方案，一个操作和一个URL对应一个权限，URL采取第一对象。</p>
+<p>权限的数量和数据对象的数量关系为N=CM（C为常数，通常为对象属性个数*4(CRUD)），数量在可接收范围内，同时可以满足一定的单一控制。</p>
+<figure>
+<img data-src="rbac-restful/实际资源对象.drawio.png" alt="实际资源对象.drawio"><figcaption>实际资源对象.drawio</figcaption>
+</figure>
+<h4 id="权限表定义">权限表定义</h4>
+<table>
+<thead>
+<tr class="header">
+<th>权限UUID</th>
+<th>pid</th>
+<th>uuid(char(36))</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>权限可读性名称</td>
+<td>name</td>
+<td>varchar(100)</td>
+</tr>
+<tr class="even">
+<td>权限创建者(仅当URL包含数据对象)--冗余信息，加快查找匹配速度</td>
+<td>owner</td>
+<td>uuid</td>
+</tr>
+<tr class="odd">
+<td>url模板链接（包含第一对象）</td>
+<td>url</td>
+<td>varchar(2000)</td>
+</tr>
+<tr class="even">
+<td>操作方法</td>
+<td>method</td>
+<td>varchar(64)</td>
+</tr>
+<tr class="odd">
+<td>权限作用域（即名称空间又可当作domain)</td>
+<td>scope</td>
+<td>varchar(64)</td>
+</tr>
+<tr class="even">
+<td>创建时间</td>
+<td>create_date</td>
+<td>datetime</td>
+</tr>
+</tbody>
+</table>
+<h4 id="权限资源核心的模块">权限——资源核心的模块</h4>
+<ol type="1">
+<li>系统如何自动生成权限</li>
+<li>系统如何自动分配基础权限（基础权限自动化分配策略）</li>
+</ol>
+<h4 id="权限生成">权限生成</h4>
+<ol type="1">
+<li>系统初次运行时生成
 <ul>
-<li>基于RESTFUL风格的WEB API，所有的资源都可以由Method+URL唯一的标识，因此权限可以由Method+URL作为微粒里划分</li>
-<li>权限分配部分由管理员在UI界面分配</li>
-<li>资源拥有者拥有稍微低于管理员的资源权限控制</li>
-<li>基于角色权限分配,用户-&gt;角色-&gt;权限,并且为了提高查询效率，不让用户直接拥有权限</li>
-</ul>
-<h4 id="难点">难点</h4>
+<li>加载所有控制层（controller）的路由模板到内存</li>
+<li>将模板中不含参数的链接加入权限表</li>
+</ul></li>
+<li>运行时资源创建（Create）和删除(Delete)
 <ul>
-<li>每次权限都需要执行sql，随着数据增加，权限不分表的情况下查询一次的时间过长，因此需要在内存中进行缓存</li>
-<li>除了新增的资源，对于一些业务逻辑部分直接固定的URL如何自动添加到数据库里，而不是手动加入数据库</li>
-<li>对于URL数据高效查询优化(在未来数据规模非常大的时候非常有必要)</li>
-</ul>
-<h4 id="参考文档">参考文档</h4>
-<p><a href="https://docs.microsoft.com/en-us/aspnet/core/security/authorization/iauthorizationpolicyprovider?view=aspnetcore-3.1" target="_blank" rel="noopener">Microsoft Docs</a></p>
+<li>在创建和删除加入全局钩子函数（HOOK），同时支持事务操作，方便创建失败时回调
+<ul>
+<li>同步方案：直接触发钩子加入数据库，因此每次增删即为常数C数量对应模板的操作，好处支持数据库事务，可以保持原子性</li>
+<li>异步方案：加入线程安全队列，等待后台消费服务批量创建和删除这些权限（好处，资源增删只需要O(1)时间，比较快，缺点：无法保证原子性，而且中途关闭程序会导致权限冗余或者丢失，需要在系统初始化时全表添加）</li>
+</ul></li>
+</ul></li>
+</ol>
+<p>综上考虑：采用同步方案+系统初始化</p>
+<h4 id="权限自动分配手动分配则由接口提供ui操作不在考虑范围内">权限自动分配（手动分配则由接口提供UI操作，不在考虑范围内）</h4>
+<p>基本策略规则（针对资源创建删除）（自动生成规则可由UI上后期自定义）</p>
+<ol type="1">
+<li>资源创建
+<ul>
+<li>owner对该资源有绝对权限</li>
+<li>owner所属的组（可为用户组或者其它，根据定义）拥有GET权限</li>
+<li>其余组</li>
+</ul></li>
+<li>资源删除
+<ul>
+<li>删除所有相管理的权限（数据库方面用级联删除FK对于的表）</li>
+</ul></li>
+<li>自动添加权限到系统管理员</li>
+<li>添加权限到其余角色（根据后期规则定义）</li>
+</ol>
+<h4 id="开源代码后续补充">开源代码（后续补充）</h4>
 
     </div>
 
@@ -338,7 +444,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/dotnet/" rel="tag"># dotnet</a>
+              <a href="/tags/rbac/" rel="tag"># rbac</a>
+              <a href="/tags/restful/" rel="tag"># restful</a>
           </div>
 
         
@@ -347,13 +454,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html" rel="prev" title="ASP.NET Core 2.2 JWT AUTH">
-      <i class="fa fa-chevron-left"></i> ASP.NET Core 2.2 JWT AUTH
+    <a href="/2020/07/25/probability-theory-2.html" rel="prev" title="基础概率论2">
+      <i class="fa fa-chevron-left"></i> 基础概率论2
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/03/24/DotNet-Core-WEB-API-data.html" rel="next" title="DotNet Core WEB API 数据注释本地化">
-      DotNet Core WEB API 数据注释本地化 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
