@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://blog.leavessoft.cn/2020/07/25/rbac-restful/%E8%B5%84%E6%BA%90%E4%BA%A4%E5%8F%89bug.drawio.png">
 <meta property="og:image" content="https://blog.leavessoft.cn/2020/07/25/rbac-restful/%E5%AE%9E%E9%99%85%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1.drawio.png">
 <meta property="article:published_time" content="2020-07-25T13:15:15.000Z">
-<meta property="article:modified_time" content="2020-07-25T14:50:51.660Z">
+<meta property="article:modified_time" content="2020-07-25T15:01:07.237Z">
 <meta property="article:author" content="Minskiter">
 <meta property="article:tag" content="rbac">
 <meta property="article:tag" content="restful">
@@ -287,7 +287,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-25 21:15:15 / 修改时间：22:50:51" itemprop="dateCreated datePublished" datetime="2020-07-25T21:15:15+08:00">2020-07-25</time>
+              <time title="创建时间：2020-07-25 21:15:15 / 修改时间：23:01:07" itemprop="dateCreated datePublished" datetime="2020-07-25T21:15:15+08:00">2020-07-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -322,25 +322,37 @@
 <p>对于restful来说</p>
 <p>method+url 即代表了操作+资源</p>
 <p>对于资源来说：</p>
-<p>restful的🔗资源分为两大类: 
+<p>restful的🔗资源分为两大类:</p>
+<ol type="1">
+<li><p>/api/user/session</p>
 
-1. /api/user/session  
 
-   不含{route}变量，这种资源仅仅在编程时初始化创建
+   不含{ route }变量，这种资源仅仅在编程时初始化创建
 
-2. /api/user/{userid}/phone    
+   
 
-   含有{route}变量，这个变量通常对应着数据库里的唯一一个数据对象——通常为主键。
 
-   包含关系：对于/api/usergroup/{groupid}/user/{userid}则有两个资源对象，如果是直接生成唯一资源，对于n个group，m个user意味着有n*m个链接，如果根据这个单独生成资源对象，则数据量增长为平方级，考虑到数据对象要达到万以上的数量，则资源链接将为上亿级，虽然这100%能满足单一控制，但是实际并不需要，而且数据量过多大大影响CRUD效率
+2. /api/user/{userid}/phone 
 
-   考虑这两个资源对象为层次父子关系，即group里包含user，因此该url的对象权重group权值更大，因此考虑对于这种资源，考虑将第一个对象纳入资源表，后一个对象为通用识别（在mysql里为%，但是考虑到url中文字符包含单个%,因此修改为{%})，如果需要单独限制后一个对象，完全有类型于/api/user/{userid}类型的url来控制。
+   
 
-   对于三变量（一般不会出现这种url）全部只保留第一对象
 
-   *因此在创建url模板的时候需要考虑是否第一对象对于其余对象有绝对的层次关系*
+   含有{ route }变量，这个变量通常对应着数据库里的唯一一个数据对象——通常为主键。
 
-</p>
+   
+
+
+   包含关系：对于/api/usergroup/{ groupid }/user/{ userid }则有两个资源对象，如果是直接生成唯一资源，对于n个group，m个user意味着有n*m个链接，如果根据这个单独生成资源对象，则数据量增长为平方级，考虑到数据对象要达到万以上的数量，则资源链接将为上亿级，虽然这100%能满足单一控制，但是实际并不需要，而且数据量过多大大影响CRUD效率
+
+   
+
+
+   考虑这两个资源对象为层次父子关系，即group里包含user，因此该url的对象权重group权值更大，因此考虑对于这种资源，考虑将第一个对象纳入资源表，后一个对象为通用识别（在mysql里为%，但是考虑到url中文字符包含单个%,因此修改为{ % })，如果需要单独限制后一个对象，完全有类型于/api/user/{ userid }类型的url来控制。
+
+   
+<p>对于三变量（一般不会出现这种url）全部只保留第一对象</p>
+<p><em>因此在创建url模板的时候需要考虑是否第一对象对于其余对象有绝对的层次关系</em></p></li>
+</ol>
 <h4 id="在此之前曾经考虑将数据对象和url模板完全分离">在此之前曾经考虑将数据对象和url模板完全分离</h4>
 <figure>
 <img data-src="rbac-restful/资源对象.drawio.png" alt="资源对象.drawio"><figcaption>资源对象.drawio</figcaption>
