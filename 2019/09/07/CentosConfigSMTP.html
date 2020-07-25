@@ -186,7 +186,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Aliyun-默认封25端口-所以只能转用465端口发邮件"><span class="nav-number">1.</span> <span class="nav-text">Aliyun 默认封25端口 所以只能转用465端口发邮件</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#aliyun-默认封25端口-所以只能转用465端口发邮件"><span class="nav-number">1.</span> <span class="nav-text">Aliyun 默认封25端口 所以只能转用465端口发邮件</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -311,28 +311,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="Aliyun-默认封25端口-所以只能转用465端口发邮件"><a href="#Aliyun-默认封25端口-所以只能转用465端口发邮件" class="headerlink" title="Aliyun 默认封25端口 所以只能转用465端口发邮件"></a>Aliyun 默认封25端口 所以只能转用465端口发邮件</h4><a id="more"></a>
-
-<ol>
-<li><p>安装mailx（PS:使用前关闭默认的postfix）</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mailx</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建一个用来存放 ssl 证书的目录</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /&#123;你的用户名&#125;/.certs&#123;可以修改为其它名字&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我这里采用网易126邮箱</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/mail.rc <span class="comment"># 默认的配置是在这个文件夹</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取ssl 证书</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">echo</span> -n | openssl s_client -connect smtp.126.com:465 | sed -ne <span class="string">'/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'</span> &gt; ~/.certs/126.crt <span class="comment"># 向126请求证书</span></span><br><span class="line">    ```   </span><br><span class="line"></span><br><span class="line">5. 配置mail.rc</span><br><span class="line">    ``` bash</span><br><span class="line">    <span class="built_in">set</span> from=xxx@126.com <span class="comment">#之前设置好的邮箱地址</span></span><br><span class="line">    <span class="built_in">set</span> smtp=smtps://smtp.126.com:465 <span class="comment">#邮件服务器</span></span><br><span class="line">    <span class="built_in">set</span> smtp-auth-user=xxx <span class="comment">#用户名</span></span><br><span class="line">    <span class="built_in">set</span> smtp-auth-password=xxxx <span class="comment">#授权码</span></span><br><span class="line">    <span class="built_in">set</span> smtp-auth=login <span class="comment">#默认login即可</span></span><br><span class="line">    <span class="built_in">set</span> ssl-verify=ignore <span class="comment">#ssl认证方式</span></span><br><span class="line">    <span class="built_in">set</span> nss-config-dir=/&#123;你的用户名&#125;/.certs <span class="comment">#证书所在目录</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-</li>
+        <h4 id="aliyun-默认封25端口-所以只能转用465端口发邮件">Aliyun 默认封25端口 所以只能转用465端口发邮件</h4>
+<a id="more"></a>
+<ol type="1">
+<li><p>安装mailx（PS:使用前关闭默认的postfix） <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mailx</span><br></pre></td></tr></table></figure></p></li>
+<li><p>创建一个用来存放 ssl 证书的目录 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /&#123;你的用户名&#125;/.certs&#123;可以修改为其它名字&#125;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>我这里采用网易126邮箱 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/mail.rc <span class="comment"># 默认的配置是在这个文件夹</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>获取ssl 证书 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">echo</span> -n | openssl s_client -connect smtp.126.com:465 | sed -ne <span class="string">'/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'</span> &gt; ~/.certs/126.crt <span class="comment"># 向126请求证书</span></span><br><span class="line">    ```   </span><br><span class="line"></span><br><span class="line">5. 配置mail.rc</span><br><span class="line">    ``` bash</span><br><span class="line">    <span class="built_in">set</span> from=xxx@126.com <span class="comment">#之前设置好的邮箱地址</span></span><br><span class="line">    <span class="built_in">set</span> smtp=smtps://smtp.126.com:465 <span class="comment">#邮件服务器</span></span><br><span class="line">    <span class="built_in">set</span> smtp-auth-user=xxx <span class="comment">#用户名</span></span><br><span class="line">    <span class="built_in">set</span> smtp-auth-password=xxxx <span class="comment">#授权码</span></span><br><span class="line">    <span class="built_in">set</span> smtp-auth=login <span class="comment">#默认login即可</span></span><br><span class="line">    <span class="built_in">set</span> ssl-verify=ignore <span class="comment">#ssl认证方式</span></span><br><span class="line">    <span class="built_in">set</span> nss-config-dir=/&#123;你的用户名&#125;/.certs <span class="comment">#证书所在目录</span></span><br></pre></td></tr></table></figure></p></li>
 </ol>
 
     </div>
@@ -353,8 +338,8 @@
       <i class="fa fa-chevron-left"></i> poyla定理
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/09/07/GTKWindowConfig.html" rel="next" title="GTK windows 编译环境配置gtk">
-      GTK windows 编译环境配置gtk <i class="fa fa-chevron-right"></i>
+    <a href="/2019/09/07/ASP_NET_Core_2_2_JWT_AUTH_.html" rel="next" title="ASP.NET Core 2.2 JWT AUTH">
+      ASP.NET Core 2.2 JWT AUTH <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

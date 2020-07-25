@@ -191,7 +191,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GTKwin配置-Clion-IDE配置"><span class="nav-number">1.</span> <span class="nav-text">GTKwin配置+Clion IDE配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境"><span class="nav-number">1.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备GTK官方download指南"><span class="nav-number">1.2.</span> <span class="nav-text">准备GTK官方download指南</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载完毕后设置win环境变量"><span class="nav-number">1.3.</span> <span class="nav-text">下载完毕后设置win环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLION-IDE-配置debug和release"><span class="nav-number">1.4.</span> <span class="nav-text">CLION IDE 配置debug和release</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置完成即可欢快的写GTK程序了"><span class="nav-number">1.5.</span> <span class="nav-text">配置完成即可欢快的写GTK程序了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行包包装"><span class="nav-number">1.6.</span> <span class="nav-text">运行包包装</span></a></li></ol></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gtkwin配置clion-ide配置"><span class="nav-number">1.</span> <span class="nav-text">GTKwin配置+Clion IDE配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境"><span class="nav-number">1.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备gtk官方download指南2"><span class="nav-number">1.2.</span> <span class="nav-text">准备GTK官方download指南</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载完毕后设置win环境变量"><span class="nav-number">1.3.</span> <span class="nav-text">下载完毕后设置win环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clion-ide-配置debug和release"><span class="nav-number">1.4.</span> <span class="nav-text">CLION IDE 配置debug和release</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置完成即可欢快的写gtk程序了"><span class="nav-number">1.5.</span> <span class="nav-text">配置完成即可欢快的写GTK程序了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行包包装"><span class="nav-number">1.6.</span> <span class="nav-text">运行包包装</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -316,43 +316,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="GTKwin配置-Clion-IDE配置"><a href="#GTKwin配置-Clion-IDE配置" class="headerlink" title="GTKwin配置+Clion IDE配置"></a>GTKwin配置+Clion IDE配置</h3><a id="more"></a>
-<h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><ul>
+        <h3 id="gtkwin配置clion-ide配置">GTKwin配置+Clion IDE配置</h3>
+<a id="more"></a>
+<h4 id="环境">环境</h4>
+<ul>
 <li>windows 10 x86_64</li>
 <li><a href="https://msys2.github.io/" target="_blank" rel="noopener">msys2</a></li>
 </ul>
-<h4 id="准备GTK官方download指南"><a href="#准备GTK官方download指南" class="headerlink" title="准备GTK官方download指南"></a>准备<a href="https://www.gtk.org/download/windows.php" target="_blank" rel="noopener">GTK官方download指南</a></h4><ol>
+<h4 id="准备gtk官方download指南2">准备<a href="https://www.gtk.org/download/windows.php" target="_blank" rel="noopener">GTK官方download指南</a></h4>
+<ol type="1">
 <li>打开msys2 64位控制台</li>
 <li><code>pacman -S mingw-w64-x86_64-gtk3</code>下载gtk3</li>
 <li><code>pacman -S mingw-w64-x86_64-toolchain base-devel</code> 下载gcc等编译工具，包含Pkg-config</li>
 </ol>
 <p><em><code>pacman</code>类似于yum和apt-get的软件包管理工具</em></p>
-<h4 id="下载完毕后设置win环境变量"><a href="#下载完毕后设置win环境变量" class="headerlink" title="下载完毕后设置win环境变量"></a>下载完毕后设置win环境变量</h4><ol>
-<li>此电脑-属性（R）-高级系统设置-环境变量<ol>
+<h4 id="下载完毕后设置win环境变量">下载完毕后设置win环境变量</h4>
+<ol type="1">
+<li>此电脑-属性（R）-高级系统设置-环境变量
+<ol type="1">
 <li>新增变量<code>C_INCLUDE_PATH</code> 值<code>msys的地址\mingw64\include</code></li>
 <li>新增变量<code>LIBRARY_PATH</code> 值<code>msys的地址\mingw64\lib</code></li>
 <li>新增变量<code>MINGW_HOME</code> 值<code>msys的地址\mingw64</code></li>
 <li><code>PATH</code>变量新增值 <code>%MINGW_HOME%\bin</code></li>
-</ol>
-</li>
-<li>测试是否成功<ol>
+</ol></li>
+<li>测试是否成功
+<ol type="1">
 <li>打开powershell或者cmd</li>
 <li>测试<code>gcc -v</code>和<code>pkg-config --cflags gtk+-3.0</code></li>
 <li>若正确显示版本号和库文件包含即为安装完毕</li>
+</ol></li>
 </ol>
-</li>
+<h4 id="clion-ide-配置debug和release">CLION IDE 配置debug和release</h4>
+<ol type="1">
+<li><p>File-Setting-Toolchian 配置如图 <img data-src="GTKWindowConfig/3968774064.png" alt="3968774064"></p></li>
+<li><p>在Setting里选择CMake添加在profiles里添加Release（会自动生成）</p></li>
+<li><p>修改CMakeList.txt</p></li>
 </ol>
-<h4 id="CLION-IDE-配置debug和release"><a href="#CLION-IDE-配置debug和release" class="headerlink" title="CLION IDE 配置debug和release"></a>CLION IDE 配置debug和release</h4><ol>
-<li><p>File-Setting-Toolchian 配置如图<br><img data-src="GTKWindowConfig/3968774064.png" alt="3968774064"></p>
-</li>
-<li><p>在Setting里选择CMake添加在profiles里添加Release（会自动生成）</p>
-</li>
-<li><p>修改CMakeList.txt</p>
-<p><img data-src="GTKWindowConfig/850874946.png" alt="850874946"></p>
-<p><em>FIND_PACKAGE 包管理寻找</em><br><em>PKG_CHECK_MODULES 包模块检查</em><br><em>INCLUDE_DIRECTORIES 库路径搜索</em><br><em>LINK_DIRECTORIES 动态链接库搜索</em><br><em>set_target_properties 设置目标属性-只有release下有效</em><br><em>TARGET_LINK_LIBRARIES 生成的文件链接动态库</em></p>
-</li>
-</ol>
-<h4 id="配置完成即可欢快的写GTK程序了"><a href="#配置完成即可欢快的写GTK程序了" class="headerlink" title="配置完成即可欢快的写GTK程序了"></a>配置完成即可欢快的写GTK程序了</h4><h4 id="运行包包装"><a href="#运行包包装" class="headerlink" title="运行包包装"></a>运行包包装</h4><ol>
+<figure>
+<img data-src="GTKWindowConfig/850874946.png" alt="850874946"><figcaption>850874946</figcaption>
+</figure>
+<p><em>FIND_PACKAGE 包管理寻找</em> <em>PKG_CHECK_MODULES 包模块检查</em> <em>INCLUDE_DIRECTORIES 库路径搜索</em> <em>LINK_DIRECTORIES 动态链接库搜索</em> <em>set_target_properties 设置目标属性-只有release下有效</em> <em>TARGET_LINK_LIBRARIES 生成的文件链接动态库</em></p>
+<h4 id="配置完成即可欢快的写gtk程序了">配置完成即可欢快的写GTK程序了</h4>
+<h4 id="运行包包装">运行包包装</h4>
+<ol type="1">
 <li>复制<code>msys2地址\mingw64\bin\*.dll</code>文件</li>
 <li>复制<code>msys2地址\lib\gdk-pixbuf-2.0\*</code>文件</li>
 <li>复制<code>msys2地址\share\icons\*</code>文件</li>
@@ -379,12 +385,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/09/07/CentosConfigSMTP.html" rel="prev" title="利用NetEase邮箱进行邮件验证">
-      <i class="fa fa-chevron-left"></i> 利用NetEase邮箱进行邮件验证
+    <a href="/2019/09/07/PythonSpider.html" rel="prev" title="Python 定向爬虫python">
+      <i class="fa fa-chevron-left"></i> Python 定向爬虫python
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/03/21/permission-universal-manager.html" rel="next" title="WEB通用权限管理设计">
-      WEB通用权限管理设计 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/09/07/PoylaTheorem.html" rel="next" title="poyla定理">
+      poyla定理 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
